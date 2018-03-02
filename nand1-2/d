@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ ! -e "/tmp/nand2/v_BZ" ] ;then
+	echo "mounting ..."
+	mount -t nfs -o nolock 172.16.20.211:/home/A2/TC3000/minigui/workspace/arm_share/xb /tmp
+fi
+
+if [ -e "/tmp/nand2/v_BZ" ] ;then
+	echo "cp /tmp/nand2/v_BZ ./"
+	cp -p /tmp/nand2/* ./
+else
+	echo "/tmp/v_BZ is not exist!"
+fi
+
+./v_BZ

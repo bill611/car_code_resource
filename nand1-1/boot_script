@@ -1,0 +1,84 @@
+#!/bin/sh
+##### run user's boot procedure #####
+echo "run user's boot"
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib:/lib:/lib/ts"
+
+rm -rf /mnt/nand1-1/Recycled
+rm -rf /mnt/nand1-2/Recycled
+rm -rf /mnt/nand1-1/\$RECYCLE.BIN/
+rm -rf /mnt/nand1-2/\$RECYCLE.BIN/
+rm -rf /mnt/nand1-1/System\ Volume\ Information/
+rm -rf /mnt/nand1-2/System\ Volume\ Information/
+
+echo "cd /mnt/nand1-1"
+cd /mnt/nand1-1
+
+if [ -e "nand1.tar.gz" ] ;then
+	tar -xzvf nand1.tar.gz
+	rm nand1.tar.gz
+	echo "cd /mnt/nand1-2"
+	cd /mnt/nand1-2
+	if [ -e "nand2.tar.gz" ] ;then
+		tar -xzvf nand2.tar.gz
+		rm nand2.tar.gz
+		sleep 1
+	fi
+	reboot
+fi 
+
+if [ -e "/mnt/nand1-2/lib_romfs.bin_bak" ] ;then
+	rm /mnt/nand1-2/lib_romfs.bin_bak
+fi
+
+if [ -e "/mnt/nand1-2/lib_alsa.bin_bak" ] ;then
+	rm /mnt/nand1-2/lib_alsa.bin_bak
+fi
+echo "cd /mnt/nand1-2"
+cd /mnt/nand1-2
+echo "ln -s /mnt/nand1-2 /mnt/mg"
+ln -s /mnt/nand1-2 /mnt/mg
+
+./route.sh &
+usleep 1000
+
+if [ -e "etc/MiniGUI.cfg" ] ;then
+	echo "cp -af etc/MiniGUI.cfg /etc"
+	cp -af etc/MiniGUI.cfg /etc
+else
+	echo "etc/MiniGUI.cfg didn't exist"
+fi
+#set debug ip
+#/sbin/ifconfig eth0:1 172.16.100.125 netmask 255.255.0.0
+/usr/sbin/telnetd -l /bin/sh
+
+
+./RTL8189/init.sh
+
+
+
+if [ -e "log.txt" ] ;then
+	rm -f log.txt
+	sync
+fi
+
+if [ -e "call.sh" ] ;then
+	rm -f call.sh
+	sync
+fi
+
+if [ -e "warn.sh" ] ;then
+	rm -f warn.sh
+	sync
+fi
+
+if [ -e "unlock.sh" ] ;then
+	rm -f unlock.sh
+	sync
+fi
+
+
+
+./monitor.sh &
+
+
