@@ -13,11 +13,6 @@ if [ $? == 0 ]; then
 	ifconfig $STA_DEVICE down
 	ifconfig $STA_DEVICE up
 	
-	if [ "$STA_SSID" == "armsonarmson" ]; then
-		echo ".............eeeeeeeeeeee........."
-		exit 0
-	fi
-	
     cat ./wpa.conf.default 				> $WPA_CONF_FILE
 	
 	echo "network={"			>>$WPA_CONF_FILE
