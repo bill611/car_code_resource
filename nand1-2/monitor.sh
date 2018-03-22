@@ -4,19 +4,19 @@ ret=0
 
 #./check_imei
 
-#if [ $? = 1 ]; then
-	./network.sh Infra 
+./network.sh
 
-	ret=$?
+ret=$?
 
 echo ret=$ret
-	if [ "$ret" -eq "1" ] ;then
-		echo "./network.sh Infra .......................error!"	
-	elif [ "$ret" -eq "0" ] ;then
-		echo "./network.sh Infra .......................success!"	
-	fi
-#fi
+if [ "$ret" -eq "1" ] ;then
+    echo "./network.sh Infra .......................error!"	
+elif [ "$ret" -eq "0" ] ;then
+    echo "./network.sh Infra .......................success!"	
+fi
 
+ifconfig > ip.txt
+sync
 
 exit
 while [ 1 ];do
