@@ -10,7 +10,7 @@
 #IsProcRun=`ps | grep "wpa_supplicant" | grep -v "grep" | sed -n '1P' | awk '{print $1}'`
 IsProcRun=`ps | grep "wpa_supplicant" | grep -v "grep" | awk '{print $1}'`
 
-echo "............111111111111111111111111.............."
+#echo "............111111111111111111111111.............."
 
 while [ 1 ]; do
          if [ "$IsProcRun" != "" ]; then 
@@ -20,7 +20,7 @@ while [ 1 ]; do
          IsProcRun=`ps | grep "wpa_supplicant" | grep -v "grep" | sed -n '1P' | awk '{print $1}'`
 done
 
-echo "............222222222222222222222222.............."
+#echo "............222222222222222222222222.............."
 
 counter=0
 
@@ -54,11 +54,11 @@ while [ 1 ]; do
       fi
 
       counter=`expr $counter + 1`
-      if [ $counter = 40 ]; then 
-		echo "Timeout!!"
-		echo "............55555555555555555555555.............."
-		exit 6; 
-      fi
+    #  if [ $counter = 40 ]; then 
+	#	echo "Timeout!!"
+	#	echo "............55555555555555555555555.............."
+	#	exit 6; 
+      #fi
 	  
       usleep 200000
 

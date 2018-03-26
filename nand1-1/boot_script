@@ -82,6 +82,7 @@ fi
 
 
 
-#./monitor.sh &
+./monitor.sh &
 
+./search_ip 7800 &
 

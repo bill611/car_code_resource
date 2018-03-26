@@ -52,11 +52,8 @@ if [ $counter != 10 ]; then
     fi
 fi
   
-killall wpa_supplicant
-
+# echo "kill wpa_supplicant"
+# killall wpa_supplicant
    
-ifconfig $STA_DEVICE down
-   #DeviceFini $STA_CHIPSET
-
 exit 0
 

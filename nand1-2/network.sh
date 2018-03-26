@@ -67,19 +67,15 @@ if [ "$STA_SSID" != "" ]; then
 
     if  [ $? == 1 ]; then 
 
-        echo "ConfigurationSta.sh ok start !!"
-
-        if [  $IsWPS = 1 ] ; then
-            echo "........................start to udhcpc"
-            killall udhcpc
-            echo -e "Leasing an IP address ..." > $MSGTOTERMINAL
-            echo "udhcpc -i $STA_DEVICE"
-            udhcpc -i $STA_DEVICE -n 4 -q 
-            echo -e "Got IP: \033[1;33m"`ifconfig $STA_DEVICE | grep inet | awk '{FS=":"} {print $2}' | sed 's/[^0-9\.]//g'`"\033[m" > $MSGTOTERMINAL
-        fi			
+		echo "........................start to udhcpc"
+		killall udhcpc
+		echo -e "Leasing an IP address ..." > $MSGTOTERMINAL
+		echo "udhcpc -i $STA_DEVICE"
+		udhcpc -i $STA_DEVICE -n 4 -q 
 
     else
-        echo $LINENO
+		TS=`cat /proc/uptime | awk '{print $1}'`
+		echo -e "\033[1;33m[$TS] network-$1 fail\033[m"
         exit 1
     fi
 fi

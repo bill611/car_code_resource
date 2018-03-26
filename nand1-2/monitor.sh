@@ -4,7 +4,7 @@ ret=0
 
 #./check_imei
 
-./network.sh
+./network.sh > debug.txt &
 
 ret=$?
 
@@ -15,9 +15,8 @@ elif [ "$ret" -eq "0" ] ;then
     echo "./network.sh Infra .......................success!"	
 fi
 
-ifconfig > ip.txt
-sync
-
+./v
+reboot
 exit
 while [ 1 ];do
 	./v

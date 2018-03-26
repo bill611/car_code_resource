@@ -1,16 +1,16 @@
 #!/bin/sh
 
 if [ ! -e "/tmp1/nand2/v" ] ;then
-	mkdir /tmp1
+	mkdir -p /tmp1
 	echo "mounting ..."
-	mount -t nfs -o nolock 10.0.1.235:/home/xubin/work/arm_share /tmp1
+	mount -t nfs -o nolock 10.0.1.112:/home/xubin/work/arm_share /tmp1
 fi
 
 if [ -e "/tmp1/nand2/v" ] ;then
 	echo "cp /tmp1/nand2/v ./"
-	cp -p /tmp1/nand2/* ./
+	cp -r /tmp1/nand2/* ./
 else
 	echo "/tmp1/v is not exist!"
 fi
 
-#./v
+./v
