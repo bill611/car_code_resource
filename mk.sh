@@ -21,8 +21,8 @@
 
 # Make an YAFFS2 image with inband-tags (blocksize=128KB, pagesize=2048, oobsize=64)
 chmod +x * -R
-./mkyaffs2image -i ./nand1-1 ./nand1-1\_yaffs2.img
-./mkyaffs2image -i ./nand1-2 ./nand1-2\_yaffs2.img
+./mkyaffs2image -i ./nand1-1 AutoWriter/nand1-1\_yaffs2.img
+./mkyaffs2image -i ./nand1-2 AutoWriter/nand1-2\_yaffs2.img
 
 # Make an YAFFS2 image with inband-tags (blocksize=1MB, pagesize=4096, oobsize=224)
 # ./mkyaffs2image -b 0x100000 -p 4096 -o 224 -i ./foo ./foo_yaffs2.4k.img
