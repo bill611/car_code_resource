@@ -7,60 +7,54 @@
 
 
 
-#IsProcRun=`ps | grep "wpa_supplicant" | grep -v "grep" | sed -n '1P' | awk '{print $1}'`
 IsProcRun=`ps | grep "wpa_supplicant" | grep -v "grep" | awk '{print $1}'`
-
-#echo "............111111111111111111111111.............."
 
 while [ 1 ]; do
          if [ "$IsProcRun" != "" ]; then 
 			break; 
 		 fi
 		 
-         IsProcRun=`ps | grep "wpa_supplicant" | grep -v "grep" | sed -n '1P' | awk '{print $1}'`
+         IsProcRun=`ps | grep "wpa_supplicant" | grep -v "grep" | awk '{print $1}'`
 done
-
-#echo "............222222222222222222222222.............."
 
 counter=0
 
 while [ 1 ]; do
 
-      WPSStatus=`./wpa_cli -p $CTRL_INTERFACE -i $STA_DEVICE status | awk -F= '{if ($1=="wpa_state") {print $2}}'`
-     
- 	  echo "..........counter = $counter................WPSStatus=$WPSStatus"
-	  
-      #echo "Wait.. ($counter/30) " > $MSGTOTERMINAL
+    WPSStatus=`./wpa_cli -p $CTRL_INTERFACE -i $STA_DEVICE status | awk -F= '{if ($1=="wpa_state") {print $2}}'`
 
-      if [ "$WPSStatus" == "COMPLETED" ] && [ "$WPSStatus" != "" ]; then
+    echo "..........counter = $counter................WPSStatus=$WPSStatus"
 
-		echo "Save configuration to file ..."
-		./wpa_cli -p $CTRL_INTERFACE save_config
+    #echo "Wait.. ($counter/30) " > $MSGTOTERMINAL
 
-		echo "Show AP information"
-		./wpa_cli -p $CTRL_INTERFACE status
-		
-		echo "............333333333333333333333333.............."
+    if [ "$WPSStatus" == "COMPLETED" ] && [ "$WPSStatus" != "" ]; then
 
-        if [ $IsWPS = 1 ]; then
-			echo "Restore to network_config"
-			./wpa_conf_restore -f $WPA_CONF_FILE -o $NETCONFIG_FILE -t 0
-		fi
+        echo "Save configuration to file ..."
+        ./wpa_cli -p $CTRL_INTERFACE save_config
 
-		break;
+        echo "Show AP information"
+        ./wpa_cli -p $CTRL_INTERFACE status
 
-      elif [ "$WPSStatus" == "INACTIVE" ]; 
-		then exit 5;
-      fi
+        echo "............333333333333333333333333.............."
 
-      counter=`expr $counter + 1`
-    #  if [ $counter = 40 ]; then 
-	#	echo "Timeout!!"
-	#	echo "............55555555555555555555555.............."
-	#	exit 6; 
-      #fi
-	  
-      usleep 200000
+        # if [ $IsWPS = 1 ]; then
+        # echo "Restore to network_config"
+        # ./wpa_conf_restore -f $WPA_CONF_FILE -o $NETCONFIG_FILE -t 0
+        # fi
+
+        break;
+
+    elif [ "$WPSStatus" == "INACTIVE" ]; 
+    then exit 5;
+    fi
+
+    counter=`expr $counter + 1`
+    if [ $counter = 30 ]; then 
+        echo "Timeout!!"
+        exit 6; 
+    fi
+
+    sleep 1
 
 done
 

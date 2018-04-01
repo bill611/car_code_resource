@@ -74,12 +74,13 @@ if [ "$STA_SSID" != "" ]; then
 		udhcpc -i $STA_DEVICE -n 4 -q 
 
     else
-		TS=`cat /proc/uptime | awk '{print $1}'`
-		echo -e "\033[1;33m[$TS] network-$1 fail\033[m"
+        echo "ConfigurationSta.sh fail!!"
         exit 1
     fi
+else
+    echo "ssid is empty"
+    exit 1
 fi
-
 
 TS=`cat /proc/uptime | awk '{print $1}'`
 echo -e "\033[1;33m[$TS] network-$1 done.\033[m"

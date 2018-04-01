@@ -1,19 +1,6 @@
 #!/bin/sh
 
-ret=0
-
-#./check_imei
-
-./network.sh > debug.txt &
-
-ret=$?
-
-echo ret=$ret
-if [ "$ret" -eq "1" ] ;then
-    echo "./network.sh Infra .......................error!"	
-elif [ "$ret" -eq "0" ] ;then
-    echo "./network.sh Infra .......................success!"	
-fi
+#./network.sh > debug.txt &
 
 ./v
 reboot
