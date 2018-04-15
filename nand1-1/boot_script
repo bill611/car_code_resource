@@ -59,28 +59,7 @@ fi
 ./RTL8189/init.sh
 
 
-
-if [ -e "log.txt" ] ;then
-	rm -f log.txt
-	sync
-fi
-
-if [ -e "call.sh" ] ;then
-	rm -f call.sh
-	sync
-fi
-
-if [ -e "warn.sh" ] ;then
-	rm -f warn.sh
-	sync
-fi
-
-if [ -e "unlock.sh" ] ;then
-	rm -f unlock.sh
-	sync
-fi
-
-
+./check_ip.sh &
 
 ./monitor.sh &
 
